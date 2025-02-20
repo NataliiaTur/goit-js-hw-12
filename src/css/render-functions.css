@@ -1,0 +1,10 @@
+/* <li>
+            <img src="${img.webFormatURL}" alt="${img.tags}" width="300">
+            <p><b>Лайки:</b>${img.likes}</p>
+            <p><b>Views:</b>${img.views}</p>
+            <p><b>Comments:</b>${img.comments}</p>
+            <p><b>Downloads:</b>${img.downloads}</p>
+        </li>` */
+
+
+
