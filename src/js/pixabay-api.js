@@ -7,7 +7,7 @@ import { renderImages } from './render-functions.js';
 import iziToast from "izitoast";
 import 'izitoast/dist/css/iziToast.min.css';
 
-export async function searchImg(query, galleryList) { 
+export async function searchImg(query, galleryList, page, perPage) { 
     const API_KEY = '48820744-2d2f423ba9a206b8d884159e3';
     const BASE_URL = 'https://pixabay.com/api/';
 
@@ -18,13 +18,11 @@ export async function searchImg(query, galleryList) {
                 q: query,
                 image_type: 'photo',
                 orientation: 'horizontal',
-                safesearch: true
+                safesearch: true,
+                page: page,
+                per_page: perPage
             }
         });
-
-        console.log("Результати пошуку:", response.data.hits);
-
-        galleryList.innerHTML = '';
 
         if(response.data.hits.length === 0) {
             iziToast.error({
@@ -32,11 +30,15 @@ export async function searchImg(query, galleryList) {
                 message: 'Sorry, there are no images matching your search query. Please try again!',
                 position: 'topCenter'
             });
-            return;
+            return 0;
         }
+        
         renderImages(response.data.hits, galleryList);
+
+        return response.data.totalHits;
 
     } catch (error) {
         console.log("Помилка при запиті:", error);
+        return 0;
     }
 }
